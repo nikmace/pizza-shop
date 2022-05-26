@@ -7,6 +7,8 @@
 
 # Pizza Shop Typescript
 
+![image](https://user-images.githubusercontent.com/39880364/170506490-b39ae22c-8eea-491b-a274-a3a3ad64148c.png)
+
 Project with configured **ESLint**, **Prettier**, **Stylelint**, **Editorconfig**, **Lint Staged** & **Husky hooks**.
 
 **Backend**: Firebase Firestore <br />
