@@ -20,11 +20,13 @@
     "eslint:fix": "eslint ./src --fix \"src/**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.2",
     "firebase": "^9.8.1",
     "react": "^18.1.0",
     "react-content-loader": "^6.2.0",
     "react-dom": "^18.1.0",
     "react-paginate": "^8.1.3",
+    "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "sass": "^1.52.1",
