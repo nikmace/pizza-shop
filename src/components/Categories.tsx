@@ -1,0 +1,38 @@
+import React from 'react';
+
+type CategoryProps = {
+  categoryId: number;
+  onClickCategory: (value: number) => void;
+};
+
+const Categories: React.FC<CategoryProps> = ({
+  categoryId,
+  onClickCategory,
+}) => {
+  const categories = [
+    { category: 'Все', id: 'cat0' },
+    { category: 'Мясные', id: 'cat1' },
+    { category: 'Вегетарианская', id: 'cat2' },
+    { category: 'Гриль', id: 'cat3' },
+    { category: 'Острые', id: 'cat4' },
+    { category: 'Закрытые', id: 'cat5' },
+  ];
+
+  return (
+    <div className="categories">
+      <ul>
+        {categories.map(({ category, id }, idx) => (
+          <li
+            onClick={() => onClickCategory(idx)}
+            className={categoryId === idx ? 'active' : ''}
+            key={id}
+          >
+            {category}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default Categories;
