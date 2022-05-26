@@ -2,8 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import logoSvg from '../assets/img/pizza-logo.svg';
+import Search from './Search';
 
-const Header: React.FC = () => (
+const Header: React.FC = () => {
+  return (
   <div className="header">
     <div className="container">
       <Link to="/">
@@ -15,6 +17,9 @@ const Header: React.FC = () => (
           </div>
         </div>
       </Link>
+      
+      <Search />
+
       <div className="header__cart">
         <Link to="/cart" className="button button--cart">
           <span>520 ₽</span>
@@ -53,6 +58,8 @@ const Header: React.FC = () => (
       </div>
     </div>
   </div>
-);
+
+  )
+};
 
 export default Header;
