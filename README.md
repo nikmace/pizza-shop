@@ -7,11 +7,11 @@
 
 # Pizza Shop Typescript
 
-Project with configured ESLint, Prettier, Stylelint, Editorconfig, Lint Staged & Husky hooks.
+Project with configured **ESLint**, **Prettier**, **Stylelint**, **Editorconfig**, **Lint Staged** & **Husky hooks**.
 
-Backend: Firebase Firestore
-Frontend: ReactJS, SCSS, Typescript
-Utilities: Github hooks, Husky
+**Backend**: Firebase Firestore <br />
+**Frontend**: ReactJS, SCSS, Typescript <br />
+**Utilities**: Github hooks, Husky <br />
 
 ### Steps to reproduce
 Install all the packages needed to run your react application.
