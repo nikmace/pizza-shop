@@ -7,9 +7,7 @@ type CategoryProps = {
   categoryId: number;
 };
 
-const Categories: React.FC<CategoryProps> = ({
-  categoryId,
-}) => {
+const Categories: React.FC<CategoryProps> = ({ categoryId }) => {
   const dispatch = useDispatch();
 
   const categories = [

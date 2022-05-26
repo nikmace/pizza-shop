@@ -64,9 +64,9 @@ const Home: React.FC = () => {
 
       const pizzaDocs = await getDocs(q);
 
-      console.log(
-        `CategoryID: ${categoryId}\n Sort: ${sort}\n Current Page: ${currentPage}`
-      );
+      // console.log(
+      //   `CategoryID: ${categoryId}\n Sort: ${sort}\n Current Page: ${currentPage}`
+      // );
 
       pizzaDocs.docs.forEach((pizzaDoc) => {
         const pizzaData = pizzaDoc.data();
@@ -96,9 +96,7 @@ const Home: React.FC = () => {
       <div className="content__items">
         {loading ? skeletons : filteredPizzas}
       </div>
-      <Pagination
-        currentPage={currentPage}
-      />
+      <Pagination currentPage={currentPage} />
     </>
   );
 };
