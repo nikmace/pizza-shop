@@ -1,20 +1,28 @@
 import React from 'react';
 import Skeleton from 'components/PizzaBlock/Skeleton';
 
-import { getDocs, query, where, orderBy } from 'firebase/firestore';
-import { Sort, Categories, PizzaBlock } from '../components';
+import {
+  getDocs,
+  query,
+  where,
+  orderBy,
+  limit,
+  startAt,
+} from 'firebase/firestore';
+import { Sort, Categories, PizzaBlock, Pagination } from '../components';
 
 import { pizzasCollection } from '../firebase/firebase';
 
 import { IPizza } from '../types/types';
 
-const sortItems = ['price', 'rating', 'name'];
+const sortItems = ['rating', 'price', 'name'];
 
 const Home: React.FC = () => {
   const [pizzas, setPizzas] = React.useState<IPizza[]>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [categoryId, setCategoryId] = React.useState<number>(0);
   const [sort, setSort] = React.useState<number>(0);
+  const [currentPage, setCurrentPage] = React.useState<number>(1);
 
   React.useEffect(() => {
     const getAllPizzas = async () => {
@@ -22,19 +30,29 @@ const Home: React.FC = () => {
 
       const sortName: string = sortItems[sort];
       const pizzasList: IPizza[] = [];
+      // If current page is 1 we first load 8 items, if page is 2 we load the rest
+      const itemsStartIdx: number = currentPage === 1 ? 0 : 8;
+
       let q = query(
         pizzasCollection,
         where('category', '==', categoryId),
-        orderBy(sortName)
+        orderBy(sortName),
+        limit(8),
+        startAt(itemsStartIdx)
       );
 
       if (categoryId === 0) {
-        q = query(pizzasCollection, orderBy(sortName));
+        q = query(
+          pizzasCollection,
+          orderBy(sortName, 'asc'),
+          limit(8),
+          startAt(itemsStartIdx)
+        );
       }
 
       const pizzaDocs = await getDocs(q);
 
-      console.log(`CategoryID: ${categoryId} \n Sort: ${sort}`);
+      console.log(`CategoryID: ${categoryId}\n Sort: ${sort}\n Current Page: ${currentPage}`);
 
       pizzaDocs.docs.forEach((pizzaDoc) => {
         const pizzaData = pizzaDoc.data();
@@ -46,16 +64,14 @@ const Home: React.FC = () => {
     };
     getAllPizzas();
     window.scrollTo(0, 0);
-  }, [categoryId, sort]);
+  }, [categoryId, sort, currentPage]);
 
-  //   React.useEffect(() => {
-  //     const filteredPizzas = pizzas.filter(
-  //       (pizza) => pizza.category === categoryId
-  //     );
-  //     console.log(categoryId, {filteredPizzas});
+  const skeletons = [...Array<number>(8)].map(() => <Skeleton />);
+  // TODO: Implement filtration from searchValue
+  const filteredPizzas = pizzas.map((pizza: IPizza) => (
+    <PizzaBlock key={pizza.id} {...pizza} />
+  ));
 
-  //     setPizzas(filteredPizzas);
-  //   }, [categoryId]);
   return (
     <>
       <div className="content__top">
@@ -67,12 +83,12 @@ const Home: React.FC = () => {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
-        {loading
-          ? [...Array<number>(8)].map(() => <Skeleton />)
-          : pizzas.map((pizza: IPizza) => (
-              <PizzaBlock key={pizza.id} {...pizza} />
-            ))}
+        {loading ? skeletons : filteredPizzas}
       </div>
+      <Pagination
+        currentPage={currentPage}
+        onChangePage={(number: number) => setCurrentPage(number)}
+      />
     </>
   );
 };
