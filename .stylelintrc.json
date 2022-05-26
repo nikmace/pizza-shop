@@ -6,6 +6,7 @@
     "at-rule-no-unknown": null,
     "property-no-vendor-prefix": null,
     "no-duplicate-selectors": null,
-    "selector-type-no-unknown": null
+    "selector-type-no-unknown": null,
+    "selector-pseudo-class-no-unknown": null
   }
 }
