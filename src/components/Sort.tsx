@@ -1,8 +1,10 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+
+import { changeSort } from '../redux/filter/slice';
 
 type SortProps = {
   sort: number;
-  onClickSort: (value: number) => void;
 };
 
 type PopupType = {
@@ -11,8 +13,9 @@ type PopupType = {
   id: number;
 };
 
-const Sort: React.FC<SortProps> = ({ sort, onClickSort }) => {
+const Sort: React.FC<SortProps> = ({ sort }) => {
   const [open, setOpen] = React.useState<boolean>(false);
+  const dispatch = useDispatch();
 
   const popupTypes: PopupType[] = [
     { name: 'популярности', sort: 'rating', id: 0 },
@@ -23,7 +26,7 @@ const Sort: React.FC<SortProps> = ({ sort, onClickSort }) => {
   const sortName = popupTypes[sort].name;
 
   const onClickListItem = (idx: number): void => {
-    onClickSort(idx);
+    dispatch(changeSort(idx));
     setOpen(false);
   };
 

@@ -5,3 +5,4 @@ export { default as PizzaBlock } from './PizzaBlock';
 export { default as NotFoundBlock } from './NotFoundBlock';
 export { default as Search } from './Search';
 export { default as Pagination } from './Pagination';
+export { default as Skeleton } from './PizzaBlock/Skeleton';

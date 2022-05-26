@@ -1,14 +1,17 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+
+import { changeCategory } from '../redux/filter/slice';
 
 type CategoryProps = {
   categoryId: number;
-  onClickCategory: (value: number) => void;
 };
 
 const Categories: React.FC<CategoryProps> = ({
   categoryId,
-  onClickCategory,
 }) => {
+  const dispatch = useDispatch();
+
   const categories = [
     { category: 'Все', id: 'cat0' },
     { category: 'Мясные', id: 'cat1' },
@@ -23,7 +26,7 @@ const Categories: React.FC<CategoryProps> = ({
       <ul>
         {categories.map(({ category, id }, idx) => (
           <li
-            onClick={() => onClickCategory(idx)}
+            onClick={() => dispatch(changeCategory(idx))}
             className={categoryId === idx ? 'active' : ''}
             key={id}
           >
