@@ -1,6 +1,4 @@
 import React from 'react';
-import Skeleton from 'components/PizzaBlock/Skeleton';
-
 import {
   getDocs,
   query,
@@ -9,7 +7,16 @@ import {
   limit,
   startAt,
 } from 'firebase/firestore';
-import { Sort, Categories, PizzaBlock, Pagination } from '../components';
+import { useSelector } from 'react-redux';
+
+import { selectSort, selectCategory, selectPage } from 'redux/filter/selectors';
+import {
+  Sort,
+  Categories,
+  PizzaBlock,
+  Pagination,
+  Skeleton,
+} from '../components';
 
 import { pizzasCollection } from '../firebase/firebase';
 
@@ -20,14 +27,19 @@ const sortItems = ['rating', 'price', 'name'];
 const Home: React.FC = () => {
   const [pizzas, setPizzas] = React.useState<IPizza[]>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
-  const [categoryId, setCategoryId] = React.useState<number>(0);
-  const [sort, setSort] = React.useState<number>(0);
-  const [currentPage, setCurrentPage] = React.useState<number>(1);
+  // const [categoryId, setCategoryId] = React.useState<number>(0);
+  // const [sort, setSort] = React.useState<number>(0);
+  // const [currentPage, setCurrentPage] = React.useState<number>(1);
+
+  const categoryId = useSelector(selectCategory);
+  const sort = useSelector(selectSort);
+  const currentPage = useSelector(selectPage);
 
   React.useEffect(() => {
     const getAllPizzas = async () => {
       setLoading(true);
 
+      // Sort name is used to query pizzas collection
       const sortName: string = sortItems[sort];
       const pizzasList: IPizza[] = [];
       // If current page is 1 we first load 8 items, if page is 2 we load the rest
@@ -52,7 +64,9 @@ const Home: React.FC = () => {
 
       const pizzaDocs = await getDocs(q);
 
-      // console.log(`CategoryID: ${categoryId}\n Sort: ${sort}\n Current Page: ${currentPage}`);
+      console.log(
+        `CategoryID: ${categoryId}\n Sort: ${sort}\n Current Page: ${currentPage}`
+      );
 
       pizzaDocs.docs.forEach((pizzaDoc) => {
         const pizzaData = pizzaDoc.data();
@@ -75,11 +89,8 @@ const Home: React.FC = () => {
   return (
     <>
       <div className="content__top">
-        <Categories
-          categoryId={categoryId}
-          onClickCategory={(idx: number) => setCategoryId(idx)}
-        />
-        <Sort sort={sort} onClickSort={(idx: number) => setSort(idx)} />
+        <Categories categoryId={categoryId} />
+        <Sort sort={sort} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
@@ -87,7 +98,6 @@ const Home: React.FC = () => {
       </div>
       <Pagination
         currentPage={currentPage}
-        onChangePage={(number: number) => setCurrentPage(number)}
       />
     </>
   );
