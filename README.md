@@ -5,9 +5,13 @@
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-# React Typescript Boilerplate
+# Pizza Shop Typescript
 
-Boilerplate with configured ESLint, Prettier, Stylelint, Editorconfig, Lint Staged & Husky hooks.
+Project with configured ESLint, Prettier, Stylelint, Editorconfig, Lint Staged & Husky hooks.
+
+Backend: Firebase Firestore
+Frontend: ReactJS, SCSS, Typescript
+Utilities: Github hooks, Husky
 
 ### Steps to reproduce
 Install all the packages needed to run your react application.
@@ -21,16 +25,16 @@ npm start
 
 <!-- MARKDOWN LINKS & IMAGES SHIELDS -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/nikmace/boilerplate-react.svg?style=for-the-badge
-[contributors-url]: https://github.com/nikmace/boilerplate-react/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/nikmace/boilerplate-react.svg?style=for-the-badge
-[forks-url]: https://github.com/nikmace/boilerplate-react/network/members
-[stars-shield]: https://img.shields.io/github/stars/nikmace/boilerplate-react.svg?style=for-the-badge
-[stars-url]: https://github.com/nikmace/boilerplate-react/stargazers
-[issues-shield]: https://img.shields.io/github/issues/nikmace/boilerplate-react.svg?style=for-the-badge
-[issues-url]: https://github.com/nikmace/boilerplate-react/issues
-[license-shield]: https://img.shields.io/github/license/nikmace/boilerplate-react.svg?style=for-the-badge
-[license-url]: https://github.com/nikmace/boilerplate-react/blob/master/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/nikmace/pizza-shop.svg?style=for-the-badge
+[contributors-url]: https://github.com/nikmace/pizza-shop/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/nikmace/pizza-shop.svg?style=for-the-badge
+[forks-url]: https://github.com/nikmace/pizza-shop/network/members
+[stars-shield]: https://img.shields.io/github/stars/nikmace/pizza-shop.svg?style=for-the-badge
+[stars-url]: https://github.com/nikmace/pizza-shop/stargazers
+[issues-shield]: https://img.shields.io/github/issues/nikmace/pizza-shop.svg?style=for-the-badge
+[issues-url]: https://github.com/nikmace/pizza-shop/issues
+[license-shield]: https://img.shields.io/github/license/nikmace/pizza-shop.svg?style=for-the-badge
+[license-url]: https://github.com/nikmace/pizza-shop/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/nikita-baranov-34a7ba1a2
 [product-screenshot]: images/screenshot.png
