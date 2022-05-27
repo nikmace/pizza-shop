@@ -1,8 +1,22 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { setSearchValue, clearSearchValue } from '../../redux/filter/slice';
+import { selectPizza } from '../../redux/filter/selectors';
 import styles from './Search.module.scss';
 
-const Search = () => {
+const Search: React.FC = () => {
+  const dispatch = useDispatch();
+  const searchName = useSelector(selectPizza);
+
+  const onChangeSearchValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSearchValue(e.target.value));
+  };
+
+  const onClearSearchValue = (): void => {
+    dispatch(clearSearchValue());
+  };
+
   return (
     <div className={styles.root}>
       <svg
@@ -40,12 +54,15 @@ const Search = () => {
         />
       </svg>
       <input
+        value={searchName}
+        onChange={onChangeSearchValue}
         type="search"
         className={styles.input}
         placeholder="Поиск пиццы ..."
       />
       {/* TODO: Add cross to clear input  */}
       <svg
+        onClick={onClearSearchValue}
         className={styles.clearIcon}
         version="1.1"
         viewBox="0 0 24 24"

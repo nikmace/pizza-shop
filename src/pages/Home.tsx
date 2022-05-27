@@ -9,7 +9,12 @@ import {
 } from 'firebase/firestore';
 import { useSelector } from 'react-redux';
 
-import { selectSort, selectCategory, selectPage } from 'redux/filter/selectors';
+import {
+  selectSort,
+  selectCategory,
+  selectPage,
+  selectPizza,
+} from 'redux/filter/selectors';
 import {
   Sort,
   Categories,
@@ -34,6 +39,7 @@ const Home: React.FC = () => {
   const categoryId = useSelector(selectCategory);
   const sort = useSelector(selectSort);
   const currentPage = useSelector(selectPage);
+  const searchName = useSelector(selectPizza);
 
   React.useEffect(() => {
     const getAllPizzas = async () => {
@@ -53,6 +59,7 @@ const Home: React.FC = () => {
         startAt(itemsStartIdx)
       );
 
+      // If category is 0 that means we have to show all pizzas, so we change the query
       if (categoryId === 0) {
         q = query(
           pizzasCollection,
@@ -64,9 +71,9 @@ const Home: React.FC = () => {
 
       const pizzaDocs = await getDocs(q);
 
-      // console.log(
-      //   `CategoryID: ${categoryId}\n Sort: ${sort}\n Current Page: ${currentPage}`
-      // );
+      console.log(
+        `CategoryID: ${categoryId}\n Sort: ${sort}\n Current Page: ${currentPage}`
+      );
 
       pizzaDocs.docs.forEach((pizzaDoc) => {
         const pizzaData = pizzaDoc.data();
@@ -80,11 +87,13 @@ const Home: React.FC = () => {
     window.scrollTo(0, 0);
   }, [categoryId, sort, currentPage]);
 
-  const skeletons = [...Array<number>(8)].map(() => <Skeleton />);
-  // TODO: Implement filtration from searchValue
-  const filteredPizzas = pizzas.map((pizza: IPizza) => (
-    <PizzaBlock key={pizza.id} {...pizza} />
-  ));
+  const skeletons = [...Array<number>(8)].map((v) => <Skeleton key={v}/>);
+
+  const filteredPizzas = pizzas
+    .filter((pizza: IPizza) =>
+      pizza.name.toLowerCase().includes(searchName.toLowerCase())
+    )
+    .map((pizza: IPizza) => <PizzaBlock key={pizza.id} {...pizza} />);
 
   return (
     <>
