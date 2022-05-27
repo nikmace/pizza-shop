@@ -4,3 +4,4 @@ import { RootState } from 'redux/store';
 export const selectSort = (state: RootState) => state.filter.sort;
 export const selectCategory = (state: RootState) => state.filter.category;
 export const selectPage = (state: RootState) => state.filter.currentPage;
+export const selectPizza = (state: RootState) => state.filter.searchName;
