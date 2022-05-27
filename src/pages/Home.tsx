@@ -87,7 +87,7 @@ const Home: React.FC = () => {
     window.scrollTo(0, 0);
   }, [categoryId, sort, currentPage]);
 
-  const skeletons = [...Array<number>(8)].map((v) => <Skeleton key={v}/>);
+  const skeletons = [...Array<number>(8)].map((v) => <Skeleton key={v} />);
 
   const filteredPizzas = pizzas
     .filter((pizza: IPizza) =>
