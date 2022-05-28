@@ -25,6 +25,10 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'import'],
   rules: {
+    '@typescript-eslint/no-unsafe-assignment': 'warn',
+    '@typescript-eslint/restrict-plus-operands': 'off',
+    '@typescript-eslint/no-unsafe-member-access': 'warn',
+    '@typescript-eslint/no-unsafe-argument': 'warn',
     '@typescript-eslint/adjacent-overload-signatures': 'error',
     '@typescript-eslint/no-empty-function': 'error',
     '@typescript-eslint/no-empty-interface': 'warn',
