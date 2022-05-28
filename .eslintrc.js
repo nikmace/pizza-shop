@@ -59,7 +59,7 @@ module.exports = {
     'no-redeclare': 'error',
     'no-sequences': 'error',
     'no-shadow': [
-      'error',
+      'off',
       {
         hoist: 'all',
       },
