@@ -7,7 +7,7 @@ import {
   limit,
   startAt,
 } from 'firebase/firestore';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
   selectSort,
@@ -15,6 +15,10 @@ import {
   selectPage,
   selectPizza,
 } from 'redux/filter/selectors';
+import { selectPizzas, selectStatus } from 'redux/pizza/selectors';
+import { setPizzas, setStatus } from 'redux/pizza/slice';
+import { Status } from 'redux/pizza/types';
+
 import {
   Sort,
   Categories,
@@ -30,20 +34,17 @@ import { IPizza } from '../types/types';
 const sortItems = ['rating', 'price', 'name'];
 
 const Home: React.FC = () => {
-  const [pizzas, setPizzas] = React.useState<IPizza[]>([]);
-  const [loading, setLoading] = React.useState<boolean>(false);
-  // const [categoryId, setCategoryId] = React.useState<number>(0);
-  // const [sort, setSort] = React.useState<number>(0);
-  // const [currentPage, setCurrentPage] = React.useState<number>(1);
-
+  const dispatch = useDispatch();
   const categoryId = useSelector(selectCategory);
   const sort = useSelector(selectSort);
   const currentPage = useSelector(selectPage);
   const searchName = useSelector(selectPizza);
+  const pizzas: IPizza[] = useSelector(selectPizzas);
+  const status: Status = useSelector(selectStatus);
 
   React.useEffect(() => {
     const getAllPizzas = async () => {
-      setLoading(true);
+      dispatch(setStatus(Status.LOADING));
 
       // Sort name is used to query pizzas collection
       const sortName: string = sortItems[sort];
@@ -68,24 +69,27 @@ const Home: React.FC = () => {
           startAt(itemsStartIdx)
         );
       }
+      try {
+        const pizzaDocs = await getDocs(q);
 
-      const pizzaDocs = await getDocs(q);
+        pizzaDocs.docs.forEach((pizzaDoc) => {
+          const pizzaData = pizzaDoc.data();
+          pizzasList.push(pizzaData);
+        });
+      } catch (error) {
+        dispatch(setStatus(Status.ERROR));
+      }
 
-      // console.log(
-      //   `CategoryID: ${categoryId}\n Sort: ${sort}\n Current Page: ${currentPage}`
-      // );
+      console.log(
+        `CategoryID: ${categoryId}\n Sort: ${sort}\n Current Page: ${currentPage}`
+      );
 
-      pizzaDocs.docs.forEach((pizzaDoc) => {
-        const pizzaData = pizzaDoc.data();
-        pizzasList.push(pizzaData);
-      });
-
-      setPizzas(pizzasList);
-      setLoading(false);
+      dispatch(setPizzas(pizzasList));
+      dispatch(setStatus(Status.SUCCESS));
     };
     getAllPizzas();
     window.scrollTo(0, 0);
-  }, [categoryId, sort, currentPage]);
+  }, [categoryId, sort, currentPage, dispatch]);
 
   const skeletons = [...Array<number>(8)].map((v) => <Skeleton key={v} />);
 
@@ -103,7 +107,7 @@ const Home: React.FC = () => {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
-        {loading ? skeletons : filteredPizzas}
+        {status === Status.LOADING ? skeletons : filteredPizzas}
       </div>
       <Pagination currentPage={currentPage} />
     </>
