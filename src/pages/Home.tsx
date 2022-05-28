@@ -102,7 +102,7 @@ const Home: React.FC = () => {
     .map((pizza: IPizza) => <PizzaBlock key={pizza.id} {...pizza} />);
 
   return (
-    <>
+    <div className="container">
       <div className="content__top">
         <Categories categoryId={categoryId} />
         <Sort sort={sort} />
@@ -112,7 +112,7 @@ const Home: React.FC = () => {
         {status === Status.LOADING ? skeletons : filteredPizzas}
       </div>
       <Pagination currentPage={currentPage} />
-    </>
+    </div>
   );
 };
 
