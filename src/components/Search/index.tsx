@@ -8,13 +8,16 @@ import styles from './Search.module.scss';
 const Search: React.FC = () => {
   const dispatch = useDispatch();
   const searchName = useSelector(selectPizza);
+  const inputRef = React.useRef() as React.MutableRefObject<HTMLInputElement>;
 
-  const onChangeSearchValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearchValue(e.target.value));
+  const onChangeSearchValue = () => {
+    dispatch(setSearchValue(inputRef.current.value));
+    inputRef.current.focus();
   };
 
   const onClearSearchValue = (): void => {
     dispatch(clearSearchValue());
+    document.getElementById('search-input')?.focus();
   };
 
   return (
@@ -54,13 +57,14 @@ const Search: React.FC = () => {
         />
       </svg>
       <input
+        id="search-input"
+        ref={inputRef}
         value={searchName}
         onChange={onChangeSearchValue}
         type="search"
         className={styles.input}
         placeholder="Поиск пиццы ..."
       />
-      {/* TODO: Add cross to clear input  */}
       <svg
         onClick={onClearSearchValue}
         className={styles.clearIcon}
