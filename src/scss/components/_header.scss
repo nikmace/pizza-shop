@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: space-between;
 
-    @media (max-width: 730px) {
+    @media (max-width: 930px) {
       flex-direction: column;
     }
   }
@@ -17,7 +17,7 @@
   &__logo {
     display: flex;
 
-    @media (max-width: 730px) {
+    @media (max-width: 930px) {
       padding-bottom: 30px;
     }
 
