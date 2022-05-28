@@ -80,9 +80,9 @@ const Home: React.FC = () => {
         dispatch(setStatus(Status.ERROR));
       }
 
-      console.log(
-        `CategoryID: ${categoryId}\n Sort: ${sort}\n Current Page: ${currentPage}`
-      );
+      // console.log(
+      //   `CategoryID: ${categoryId}\n Sort: ${sort}\n Current Page: ${currentPage}`
+      // );
 
       dispatch(setPizzas(pizzasList));
       dispatch(setStatus(Status.SUCCESS));
