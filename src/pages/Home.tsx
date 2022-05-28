@@ -73,7 +73,10 @@ const Home: React.FC = () => {
         const pizzaDocs = await getDocs(q);
 
         pizzaDocs.docs.forEach((pizzaDoc) => {
-          const pizzaData = pizzaDoc.data();
+          const pizzaData = {
+            ...pizzaDoc.data(),
+            id: pizzaDoc.id,
+          };
           pizzasList.push(pizzaData);
         });
       } catch (error) {
@@ -83,7 +86,6 @@ const Home: React.FC = () => {
       // console.log(
       //   `CategoryID: ${categoryId}\n Sort: ${sort}\n Current Page: ${currentPage}`
       // );
-
       dispatch(setPizzas(pizzasList));
       dispatch(setStatus(Status.SUCCESS));
     };
