@@ -2,7 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { selectTotalPrice, selectCart } from 'redux/cart/selectors';
+import {
+  selectTotalPrice,
+  selectCart,
+  selectCartItemsCount,
+} from 'redux/cart/selectors';
 import { removeAllItemsFromCart } from 'redux/cart/slice';
 
 import { CartItem } from 'types/types';
@@ -12,11 +16,7 @@ const Cart: React.FC = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector(selectCart);
   const totalPrice = useSelector(selectTotalPrice);
-
-  const totalCount = cartItems.reduce(
-    (sum: number, item: CartItem) => sum + item.count,
-    0
-  );
+  const totalCount = useSelector(selectCartItemsCount);
 
   if (totalCount === 0) {
     return (
@@ -109,7 +109,10 @@ const Cart: React.FC = () => {
         </div>
         <div className="content__items">
           {cartItems.map((cartItem: CartItem) => (
-            <CartBlock key={cartItem.id} {...cartItem} />
+            <CartBlock
+              key={`${cartItem.id}-${cartItem.variation.id}`}
+              {...cartItem}
+            />
           ))}
         </div>
         <div className="cart__bottom">
