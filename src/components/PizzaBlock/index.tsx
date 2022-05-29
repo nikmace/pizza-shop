@@ -1,7 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { addItemToCart } from 'redux/cart/slice';
 import { CartItem, IPizza, VariationItem } from 'types/types';
+
+import getPriceOfVariation from '../../pizza-variations/getVariation';
 
 import { selectCartItemById } from '../../redux/cart/selectors';
 import pizzaVariations from '../../pizza-variations';
@@ -19,10 +22,20 @@ const PizzaBlock: React.FC<IPizza> = ({
   const dispatch = useDispatch();
   const addedCount = useSelector(selectCartItemById(id));
 
-  const [activeType, setActiveType] = React.useState(0);
-  const [activeSize, setActiveSize] = React.useState(0);
+  const [activeType, setActiveType] = React.useState<number>(0);
+  const [activeSize, setActiveSize] = React.useState<number>(0);
+  const [activePrice, setActivePrice] = React.useState<number>(0);
+  const pizzaTypes: string[] = React.useMemo(
+    () => ['тонкое', 'традиционное'],
+    []
+  );
+  const pizzaSizes: number[] = React.useMemo(() => [26, 30, 40], []);
 
-  const pizzaTypes: string[] = ['тонкое', 'традиционное'];
+  React.useEffect(() => {
+    setActivePrice(
+      getPriceOfVariation(activeType, activeSize, pizzaTypes, pizzaSizes)
+    );
+  }, [activeType, activeSize, pizzaTypes, pizzaSizes]);
 
   const onAddPizzaToCart = () => {
     let variation: VariationItem = {
@@ -87,7 +100,7 @@ const PizzaBlock: React.FC<IPizza> = ({
           </ul>
         </div>
         <div className="pizza-block__bottom">
-          <div className="pizza-block__price">от {price} ₽</div>
+          <div className="pizza-block__price">от {price + activePrice} ₽</div>
           <div
             role="none"
             onClick={onAddPizzaToCart}
