@@ -11,6 +11,7 @@ export interface IPizza {
 
 export type CartItem = {
   id: string;
+  variation: VariationItem;
   imageUrl: string;
   name: string;
   type: string;
@@ -18,5 +19,12 @@ export type CartItem = {
   price: number;
   category: number;
   rating: number;
+};
+
+export type VariationItem = {
+  id: string;
+  type: string;
+  size: number;
   count: number;
+  variationPrice: number;
 };
