@@ -1,5 +1,6 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectVariationTotalPrice } from 'redux/cart/selectors';
 
 import { CartItem } from 'types/types';
 import {
@@ -14,24 +15,25 @@ const CartBlock: React.FC<CartItem> = ({
   size,
   price,
   imageUrl,
-  count,
   id,
+  variation,
   category,
   rating,
 }) => {
   const dispatch = useDispatch();
+  const totalPrice = useSelector(selectVariationTotalPrice(id, variation.id));
 
   const onAddPizzaToCart = () => {
     const item: CartItem = {
       id,
+      variation,
       imageUrl,
       name,
       type,
       size,
-      price,
+      price: price + variation.variationPrice,
       category,
       rating,
-      count: 0,
     };
 
     dispatch(addItemToCart(item));
@@ -44,13 +46,13 @@ const CartBlock: React.FC<CartItem> = ({
       <div className="cart__item-info">
         <h3>{name}</h3>
         <p>
-          {type}, {size} см.
+          {variation.type}, {variation.size} см.
         </p>
       </div>
       <div className="cart__item-count">
         <div
           role="none"
-          onClick={() => dispatch(minusItem(id))}
+          onClick={() => dispatch(minusItem({ id, variationId: variation.id }))}
           className="button button--outline button--circle cart__item-count-minus"
         >
           <svg
@@ -70,7 +72,7 @@ const CartBlock: React.FC<CartItem> = ({
             />
           </svg>
         </div>
-        <b>{count}</b>
+        <b>{variation.count}</b>
         <div
           role="none"
           onClick={onAddPizzaToCart}
@@ -95,12 +97,14 @@ const CartBlock: React.FC<CartItem> = ({
         </div>
       </div>
       <div className="cart__item-price">
-        <b>{price} ₽</b>
+        <b>{totalPrice} ₽</b>
       </div>
       <div className="cart__item-remove">
         <div
           role="none"
-          onClick={() => dispatch(removeSingleItem(id))}
+          onClick={() =>
+            dispatch(removeSingleItem({ id, variationId: variation.id }))
+          }
           className="button button--outline button--circle"
         >
           <svg

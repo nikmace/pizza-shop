@@ -1,9 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItemToCart } from 'redux/cart/slice';
-import { CartItem, IPizza } from 'types/types';
+import { CartItem, IPizza, VariationItem } from 'types/types';
 
 import { selectCartItemById } from '../../redux/cart/selectors';
+import pizzaVariations from '../../pizza-variations';
 
 const PizzaBlock: React.FC<IPizza> = ({
   id,
@@ -16,9 +17,7 @@ const PizzaBlock: React.FC<IPizza> = ({
   rating,
 }) => {
   const dispatch = useDispatch();
-  const cartItem = useSelector(selectCartItemById(id));
-
-  const addedCount: number = cartItem ? cartItem.count : 0;
+  const addedCount = useSelector(selectCartItemById(id));
 
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
@@ -26,16 +25,33 @@ const PizzaBlock: React.FC<IPizza> = ({
   const pizzaTypes: string[] = ['тонкое', 'традиционное'];
 
   const onAddPizzaToCart = () => {
+    let variation: VariationItem = {
+      id: 'thin-26',
+      type: 'тонкое',
+      size: 26,
+      count: 0,
+      variationPrice: 0,
+    };
+
+    for (const variationItem of pizzaVariations) {
+      if (
+        variationItem.size === sizes[activeSize] &&
+        variationItem.type === pizzaTypes[activeType]
+      ) {
+        variation = variationItem;
+      }
+    }
+
     const item: CartItem = {
       id,
+      variation,
       imageUrl,
       name,
       type: pizzaTypes[activeType],
       size: sizes[activeSize],
-      price,
+      price: price + variation.variationPrice,
       category,
       rating,
-      count: 0,
     };
 
     dispatch(addItemToCart(item));
