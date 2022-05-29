@@ -196,21 +196,55 @@ body {
   }
 
   &__item {
-    display: flex;
+    display: grid;
     width: 100%;
     border-top: 1px solid $gray-line;
     padding-top: 30px;
     margin-top: 30px;
+    grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+
+    @media (max-width: 730px) {
+      grid-template-columns: 1fr 4fr 0.5fr;
+      grid-remplate-rows: 0.5fr 0.5fr;
+
+      div:nth-child(1) {
+        grid-row-start: 1;
+      }
+
+      div:nth-child(2) {
+        grid-row-start: 1;
+      }
+
+      div:nth-child(3) {
+        grid-row-start: 2;
+      }
+
+      div:nth-child(4) {
+        grid-row-start: 2;
+      }
+
+      div:nth-child(5) {
+        grid-row-start: 2;
+      }
+    }
 
     &-img {
       display: flex;
       align-items: center;
       margin-right: 15px;
-      width: 10%;
+
+      @media (max-width: 730px) {
+        margin-right: 0;
+      }
 
       img {
         width: 80px;
         height: 80px;
+
+        @media (max-width: 730px) {
+          width: 180px;
+          height: 180px;
+        }
       }
     }
 
@@ -218,7 +252,6 @@ body {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      width: 40%;
 
       h3 {
         font-weight: bold;
@@ -236,8 +269,8 @@ body {
     &-count {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      width: 13%;
+      justify-content: space-evenly;
+      height: 80px;
 
       &-minus {
         svg {
@@ -277,7 +310,7 @@ body {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 33%;
+      height: 80px;
 
       b {
         font-weight: bold;
@@ -290,7 +323,11 @@ body {
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      width: 4%;
+      height: 80px;
+
+      @media (min-width: 730px) {
+        justify-content: center;
+      }
 
       .button {
         border-color: darken($color: $gray-line, $amount: 10);
