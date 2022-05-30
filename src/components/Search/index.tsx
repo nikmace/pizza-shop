@@ -12,12 +12,11 @@ const Search: React.FC = () => {
 
   const onChangeSearchValue = () => {
     dispatch(setSearchValue(inputRef.current.value));
-    inputRef.current.focus();
   };
 
   const onClearSearchValue = (): void => {
     dispatch(clearSearchValue());
-    document.getElementById('search-input')?.focus();
+    inputRef.current.focus();
   };
 
   return (
