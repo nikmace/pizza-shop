@@ -8,6 +8,7 @@
     "no-duplicate-selectors": null,
     "selector-type-no-unknown": null,
     "selector-pseudo-class-no-unknown": null,
-    "property-no-unknown": null
+    "property-no-unknown": null,
+    "at-rule-no-vendor-prefix": null
   }
 }
