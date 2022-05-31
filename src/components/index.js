@@ -8,3 +8,5 @@ export { default as Pagination } from './Pagination';
 export { default as Skeleton } from './PizzaBlock/Skeleton';
 export { default as CartBlock } from './CartBlock';
 export { default as CartEmpty } from './CartBlock/CartEmpty';
+export { default as CheckoutInfo } from './CheckoutInfoBlock';
+export { default as Loader } from './LoaderBlock';
