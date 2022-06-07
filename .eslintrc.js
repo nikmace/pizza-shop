@@ -41,6 +41,7 @@ module.exports = {
     'import/no-default-export': 'off',
     'comma-dangle': 'off',
     'constructor-super': 'error',
+    'no-underscore-dangle': ['error', { allow: ['_id'] }],
     eqeqeq: ['warn', 'always'],
     'import/no-deprecated': 'warn',
     'import/no-extraneous-dependencies': 'error',
