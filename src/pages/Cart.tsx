@@ -110,7 +110,7 @@ const Cart: React.FC = () => {
         <div className="content__items">
           {cartItems.map((cartItem: CartItem) => (
             <CartBlock
-              key={`${cartItem.id}-${cartItem.variation.id}`}
+              key={`${cartItem._id}-${cartItem.variation.id}`}
               {...cartItem}
             />
           ))}
