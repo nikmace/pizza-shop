@@ -10,7 +10,7 @@ import { selectCartItemById } from '../../redux/cart/selectors';
 import pizzaVariations from '../../pizza-variations';
 
 const PizzaBlock: React.FC<IPizza> = ({
-  id,
+  _id,
   name,
   price,
   imageUrl,
@@ -20,7 +20,7 @@ const PizzaBlock: React.FC<IPizza> = ({
   rating,
 }) => {
   const dispatch = useDispatch();
-  const addedCount = useSelector(selectCartItemById(id));
+  const addedCount = useSelector(selectCartItemById(_id));
 
   const [activeType, setActiveType] = React.useState<number>(0);
   const [activeSize, setActiveSize] = React.useState<number>(0);
@@ -56,7 +56,7 @@ const PizzaBlock: React.FC<IPizza> = ({
     }
 
     const item: CartItem = {
-      id,
+      _id,
       variation,
       imageUrl,
       name,
