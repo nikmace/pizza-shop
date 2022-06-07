@@ -20,7 +20,7 @@ export const cartSlice = createSlice({
       // Look if there is already a pizza with same id added to cart
       const itemWithSameId = state.cartItems.find(
         (item: CartItem) =>
-          item.id === action.payload.id &&
+          item._id === action.payload._id &&
           item.variation.id === action.payload.variation.id
       );
 
@@ -45,7 +45,7 @@ export const cartSlice = createSlice({
     },
     minusItem: (
       state,
-      action: PayloadAction<{ id: string; variationId: string }>
+      action: PayloadAction<{ _id: string; variationId: string }>
     ) => {
       // Find the item with that variationId in the cart
       let elIdx = 0;
@@ -53,7 +53,7 @@ export const cartSlice = createSlice({
         elIdx = idx;
         return (
           item.variation.id === action.payload.variationId &&
-          item.id === action.payload.id
+          item._id === action.payload._id
         );
       });
 
@@ -75,13 +75,13 @@ export const cartSlice = createSlice({
     },
     removeSingleItem: (
       state,
-      action: PayloadAction<{ id: string; variationId: string }>
+      action: PayloadAction<{ _id: string; variationId: string }>
     ) => {
       // Find the item with that variationId in the cart
       const idx = state.cartItems.findIndex(
         (item) =>
           item.variation.id === action.payload.variationId &&
-          item.id === action.payload.id
+          item._id === action.payload._id
       );
 
       if (idx < 0) {

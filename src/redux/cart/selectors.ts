@@ -10,7 +10,7 @@ export const selectTotalPrice = (state: RootState) => state.cart.totalPrice;
 // Returns count of pizzas with same id
 export const selectCartItemById = (id: string) => (state: RootState) =>
   state.cart.cartItems.reduce((sum, item) => {
-    if (item.id === id) {
+    if (item._id === id) {
       sum += item.variation.count;
     }
     return sum;
@@ -24,7 +24,7 @@ export const selectCartItemsCount = (state: RootState): number =>
 export const selectVariationTotalPrice =
   (id: string, variationId: string) => (state: RootState) =>
     state.cart.cartItems.reduce((sum, item) => {
-      if (item.variation.id === variationId && item.id === id) {
+      if (item.variation.id === variationId && item._id === id) {
         sum += item.price * item.variation.count;
       }
       return sum;
