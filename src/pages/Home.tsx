@@ -1,12 +1,4 @@
 import React from 'react';
-import {
-  getDocs,
-  query,
-  where,
-  orderBy,
-  limit,
-  startAt,
-} from 'firebase/firestore';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
@@ -18,6 +10,7 @@ import {
 import { selectPizzas, selectStatus } from 'redux/pizza/selectors';
 import { setPizzas, setStatus } from 'redux/pizza/slice';
 import { Status } from 'redux/pizza/types';
+import getPizzasFromServer from '../server/getPizzasFromServer';
 
 import {
   Sort,
@@ -26,8 +19,6 @@ import {
   Pagination,
   Skeleton,
 } from '../components';
-
-import { pizzasCollection } from '../firebase/firebase';
 
 import { IPizza } from '../types/types';
 
@@ -48,45 +39,15 @@ const Home: React.FC = () => {
 
       // Sort name is used to query pizzas collection
       const sortName: string = sortItems[sort];
-      const pizzasList: IPizza[] = [];
-      // If current page is 1 we first load 8 items, if page is 2 we load the rest
-      const itemsStartIdx: number = currentPage === 1 ? 0 : 8;
 
-      let q = query(
-        pizzasCollection,
-        where('category', '==', categoryId),
-        orderBy(sortName),
-        limit(8),
-        startAt(itemsStartIdx)
+      // When using server and not backendless
+      const pizzasFromServer = await getPizzasFromServer(
+        categoryId,
+        sortName,
+        currentPage
       );
 
-      // If category is 0 that means we have to show all pizzas, so we change the query
-      if (categoryId === 0) {
-        q = query(
-          pizzasCollection,
-          orderBy(sortName, 'asc'),
-          limit(8),
-          startAt(itemsStartIdx)
-        );
-      }
-      try {
-        const pizzaDocs = await getDocs(q);
-
-        pizzaDocs.docs.forEach((pizzaDoc) => {
-          const pizzaData = {
-            ...pizzaDoc.data(),
-            id: pizzaDoc.id,
-          };
-          pizzasList.push(pizzaData);
-        });
-      } catch (error) {
-        dispatch(setStatus(Status.ERROR));
-      }
-
-      // console.log(
-      //   `CategoryID: ${categoryId}\n Sort: ${sort}\n Current Page: ${currentPage}`
-      // );
-      dispatch(setPizzas(pizzasList));
+      dispatch(setPizzas(pizzasFromServer));
       dispatch(setStatus(Status.SUCCESS));
     };
     getAllPizzas();
@@ -99,7 +60,7 @@ const Home: React.FC = () => {
     .filter((pizza: IPizza) =>
       pizza.name.toLowerCase().includes(searchName.toLowerCase())
     )
-    .map((pizza: IPizza) => <PizzaBlock key={pizza.id} {...pizza} />);
+    .map((pizza: IPizza) => <PizzaBlock key={pizza._id} {...pizza} />);
 
   return (
     <div className="container">
