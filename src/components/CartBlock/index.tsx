@@ -15,17 +15,17 @@ const CartBlock: React.FC<CartItem> = ({
   size,
   price,
   imageUrl,
-  id,
+  _id,
   variation,
   category,
   rating,
 }) => {
   const dispatch = useDispatch();
-  const totalPrice = useSelector(selectVariationTotalPrice(id, variation.id));
+  const totalPrice = useSelector(selectVariationTotalPrice(_id, variation.id));
 
   const onAddPizzaToCart = () => {
     const item: CartItem = {
-      id,
+      _id,
       variation,
       imageUrl,
       name,
@@ -52,7 +52,9 @@ const CartBlock: React.FC<CartItem> = ({
       <div className="cart__item-count">
         <div
           role="none"
-          onClick={() => dispatch(minusItem({ id, variationId: variation.id }))}
+          onClick={() =>
+            dispatch(minusItem({ _id, variationId: variation.id }))
+          }
           className="button button--outline button--circle cart__item-count-minus"
         >
           <svg
@@ -103,7 +105,7 @@ const CartBlock: React.FC<CartItem> = ({
         <div
           role="none"
           onClick={() =>
-            dispatch(removeSingleItem({ id, variationId: variation.id }))
+            dispatch(removeSingleItem({ _id, variationId: variation.id }))
           }
           className="button button--outline button--circle"
         >
