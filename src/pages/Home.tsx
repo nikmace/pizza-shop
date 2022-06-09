@@ -10,6 +10,7 @@ import {
 import { selectPizzas, selectStatus } from 'redux/pizza/selectors';
 import { setPizzas, setStatus } from 'redux/pizza/slice';
 import { Status } from 'redux/pizza/types';
+// import { selectError } from 'redux/error/selectors';
 import getPizzasFromServer from '../server/getPizzasFromServer';
 
 import {
@@ -32,6 +33,7 @@ const Home: React.FC = () => {
   const searchName = useSelector(selectPizza);
   const pizzas: IPizza[] = useSelector(selectPizzas);
   const status: Status = useSelector(selectStatus);
+  // const errorMsg = useSelector(selectError);
 
   React.useEffect(() => {
     const getAllPizzas = async () => {
@@ -44,7 +46,8 @@ const Home: React.FC = () => {
       const pizzasFromServer = await getPizzasFromServer(
         categoryId,
         sortName,
-        currentPage
+        currentPage,
+        dispatch
       );
 
       dispatch(setPizzas(pizzasFromServer));

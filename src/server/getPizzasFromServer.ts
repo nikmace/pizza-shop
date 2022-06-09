@@ -1,9 +1,14 @@
+import { PayloadAction } from '@reduxjs/toolkit';
+import { Dispatch } from 'react';
+
+import { setError } from 'redux/error/slice';
 import { IPizza } from 'types/types';
 
 const getPizzasFromServer = async (
   categoryId: number,
   sortName: string,
-  currentPage: number
+  currentPage: number,
+  dispatch: Dispatch<PayloadAction<string>>
 ): Promise<IPizza[]> => {
   try {
     const data = await fetch(
@@ -22,8 +27,7 @@ const getPizzasFromServer = async (
     return pizzaList;
   } catch (err) {
     if (err instanceof Error) {
-      // TODO: Error handling & Global REDUX for Errors
-      throw new Error(err.message);
+      dispatch(setError(err.message));
     }
   }
 
