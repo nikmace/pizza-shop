@@ -10,3 +10,4 @@ export { default as CartBlock } from './CartBlock';
 export { default as CartEmpty } from './CartBlock/CartEmpty';
 export { default as CheckoutInfo } from './CheckoutInfoBlock';
 export { default as Loader } from './LoaderBlock';
+export { default as BottomButtons } from './CheckoutInfoBlock/BottomButtons';
