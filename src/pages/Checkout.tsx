@@ -5,7 +5,9 @@ import getCartFromLS from 'utils/getCartFromLS';
 import { BottomButtons, CheckoutInfo, Loader } from '../components';
 
 import validateInput, { ValidationResponse } from '../server/validateInput';
+import sendOrder from '../server/sendOrder';
 import { removeAllItemsFromCart } from '../redux/cart/slice';
+import { OrderCartData } from '../types/types';
 
 export type InputValues = {
   firstName: string;
@@ -47,13 +49,32 @@ const Checkout: React.FC = () => {
   const submitOrder = async () => {
     const res = await validate();
 
+    const { cartItems, totalPrice } = getCartFromLS();
+    const arrayOfItems: OrderCartData[] = [];
+
+    cartItems.forEach((item) => {
+      arrayOfItems.push({
+        name: item.name,
+        variationId: item.variation.id,
+        count: item.variation.count,
+        price: item.price + item.variation.variationPrice,
+        size: item.variation.size,
+        type: item.variation.type,
+      });
+    });
+
     if (res?.success) {
       const order = {
         ...inputValues,
         orderTimeSent: new Date().toLocaleString(),
-        order: getCartFromLS(),
+        order: arrayOfItems,
+        totalPrice,
       };
 
+      // Save to MongoDB
+      await sendOrder(order, dispatch);
+
+      // Save to local storage
       localStorage.setItem('order', JSON.stringify(order));
       setIsLoading(true);
     }

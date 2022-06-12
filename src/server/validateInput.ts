@@ -23,13 +23,16 @@ const validateInput = async (
   dispatch: Dispatch<PayloadAction<string>>
 ): Promise<ValidationResponse | undefined> => {
   try {
-    const data = await fetch('https://pizz-server.herokuapp.com/api/v1/order', {
-      method: 'POST',
-      body: JSON.stringify(input),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const data = await fetch(
+      'https://pizz-server.herokuapp.com/api/v1/validation',
+      {
+        method: 'POST',
+        body: JSON.stringify(input),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const parsedData: ValidationResponse = await data.json();

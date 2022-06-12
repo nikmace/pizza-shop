@@ -28,3 +28,24 @@ export type VariationItem = {
   count: number;
   variationPrice: number;
 };
+
+export type Order = {
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  address: string;
+  time: string;
+  order: OrderCartData[];
+  orderTimeSent: string;
+  totalPrice: number;
+};
+
+export type OrderCartData = {
+  name: string;
+  variationId: string;
+  count: number;
+  price: number;
+  size: number;
+  type: string;
+};
