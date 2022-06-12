@@ -1,12 +1,13 @@
 import React, { ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import getCartFromLS from 'utils/getCartFromLS';
-import { CheckoutInfo, Loader } from 'components';
+import { BottomButtons, CheckoutInfo, Loader } from '../components';
+
+import validateInput, { ValidationResponse } from '../server/validateInput';
 import { removeAllItemsFromCart } from '../redux/cart/slice';
 
-type InputValues = {
+export type InputValues = {
   firstName: string;
   lastName: string;
   phone: string;
@@ -18,6 +19,9 @@ type InputValues = {
 const Checkout: React.FC = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = React.useState(false);
+  const [validationRes, setValidationRes] = React.useState<
+    ValidationResponse | undefined
+  >();
   const [inputValues, setInputValues] = React.useState<InputValues>({
     firstName: '',
     lastName: '',
@@ -33,15 +37,26 @@ const Checkout: React.FC = () => {
     setInputValues((prev) => ({ ...prev, [name]: value }));
   };
 
-  const submitOrder = () => {
-    const order = {
-      ...inputValues,
-      orderTimeSent: new Date().toLocaleString(),
-      order: getCartFromLS(),
-    };
+  const validate = async () => {
+    const res = await validateInput(inputValues, dispatch);
 
-    localStorage.setItem('order', JSON.stringify(order));
-    setIsLoading(true);
+    setValidationRes(res);
+    return res;
+  };
+
+  const submitOrder = async () => {
+    const res = await validate();
+
+    if (res?.success) {
+      const order = {
+        ...inputValues,
+        orderTimeSent: new Date().toLocaleString(),
+        order: getCartFromLS(),
+      };
+
+      localStorage.setItem('order', JSON.stringify(order));
+      setIsLoading(true);
+    }
   };
 
   // We set loading when we submit order, then redirect to home page
@@ -58,7 +73,7 @@ const Checkout: React.FC = () => {
   }
 
   return (
-    <div className="container container--cart">
+    <form className="container container--cart">
       <div className="cart__top">
         <h2 className="checkout__title">
           <svg
@@ -93,6 +108,9 @@ const Checkout: React.FC = () => {
               value={inputValues.firstName}
               onChange={handleInputChange}
             />
+            {validationRes?.errors.firstName.map((e) => (
+              <span key={e}>{e}</span>
+            ))}
           </label>
         </div>
         <div className="checkout__item">
@@ -107,6 +125,9 @@ const Checkout: React.FC = () => {
               value={inputValues.lastName}
               onChange={handleInputChange}
             />
+            {validationRes?.errors.lastName.map((e) => (
+              <span key={e}>{e}</span>
+            ))}
           </label>
         </div>
         <div className="checkout__item">
@@ -121,6 +142,9 @@ const Checkout: React.FC = () => {
               value={inputValues.phone}
               onChange={handleInputChange}
             />
+            {validationRes?.errors.phone.map((e) => (
+              <span key={e}>{e}</span>
+            ))}
           </label>
         </div>
         <div className="checkout__item">
@@ -135,6 +159,9 @@ const Checkout: React.FC = () => {
               value={inputValues.email}
               onChange={handleInputChange}
             />
+            {validationRes?.errors.email.map((e) => (
+              <span key={e}>{e}</span>
+            ))}
           </label>
         </div>
         <div className="checkout__item">
@@ -149,6 +176,9 @@ const Checkout: React.FC = () => {
               value={inputValues.address}
               onChange={handleInputChange}
             />
+            {validationRes?.errors.address.map((e) => (
+              <span key={e}>{e}</span>
+            ))}
           </label>
         </div>
         <div className="checkout__item">
@@ -162,6 +192,9 @@ const Checkout: React.FC = () => {
               value={inputValues.time}
               onChange={handleInputChange}
             />
+            {validationRes?.errors.time.map((e) => (
+              <span key={e}>{e}</span>
+            ))}
           </label>
         </div>
       </div>
@@ -169,43 +202,7 @@ const Checkout: React.FC = () => {
       <CheckoutInfo />
 
       <BottomButtons submitOrder={submitOrder} />
-    </div>
-  );
-};
-
-const BottomButtons: React.FC<{ submitOrder: () => void }> = ({
-  submitOrder,
-}) => {
-  return (
-    <div className="cart__bottom-buttons">
-      <Link
-        to="/cart"
-        className="button button--outline button--add go-back-btn"
-      >
-        <svg
-          width="8"
-          height="14"
-          viewBox="0 0 8 14"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M7 13L1 6.93015L6.86175 1"
-            stroke="#D3D3D3"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-
-        <span>Вернуться назад</span>
-      </Link>
-      <Link to="/checkout">
-        <div role="none" onClick={submitOrder} className="button pay-btn">
-          <span>Отправить заказ</span>
-        </div>
-      </Link>
-    </div>
+    </form>
   );
 };
 
