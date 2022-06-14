@@ -11,11 +11,27 @@
 
 Project with configured **ESLint**, **Prettier**, **Stylelint**, **Editorconfig**, **Lint Staged** & **Husky hooks**.
 
-**Backend**: Firebase Firestore <br />
-**Frontend**: ReactJS, SCSS, Typescript <br />
-**Utilities**: Github hooks, Husky <br />
 
-### Steps to reproduce
+# 🛠 Technologies:
+
+- **ReactJS 18**
+- **TypeScript**
+- **Redux Toolkit** (storage context for pizzas | filtration | errors | cart items)
+- **React Router v6** (navigation)
+- **Prettier** (formatting .js,.ts files)
+- **ESLint** (linting for the project)
+- **Stylelint** (formatting SCSS)
+- **SCSS-Modules / SCSS** (styles)
+- **React Content Loader** (loading skeleton)
+- **React Pagination** (pagination)
+- and more...
+
+## **Backend**:
+NestJS (Typescript) with MongoDB. The server is hosted on Heroku.
+
+Article on how to [deploy NestJS application to Heroku](https://medium.com/@nikmacentosh/deploying-nestjs-server-to-heroku-guide-46e36f8ce779).
+
+## Steps to reproduce
 Install all the packages needed to run your react application.
 ```shell
 npm install
