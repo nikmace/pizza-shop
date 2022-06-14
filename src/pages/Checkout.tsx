@@ -20,7 +20,8 @@ export type InputValues = {
 
 const Checkout: React.FC = () => {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [cartEmpty, setIsCartEmpty] = React.useState<boolean>(false);
   const [validationRes, setValidationRes] = React.useState<
     ValidationResponse | undefined
   >();
@@ -72,11 +73,17 @@ const Checkout: React.FC = () => {
       };
 
       // Save to MongoDB
-      await sendOrder(order, dispatch);
+      if (order.order.length !== 0) {
+        // TODO: If error occurs notify user
+        await sendOrder(order, dispatch);
 
-      // Save to local storage
-      localStorage.setItem('order', JSON.stringify(order));
-      setIsLoading(true);
+        // Save to local storage
+        localStorage.setItem('order', JSON.stringify(order));
+        setIsLoading(true);
+      } else {
+        // Tell user cannot send order with empty cart
+        setIsCartEmpty(true);
+      }
     }
   };
 
@@ -85,7 +92,7 @@ const Checkout: React.FC = () => {
     setTimeout(() => {
       dispatch(removeAllItemsFromCart());
 
-      window.location.replace('/');
+      // window.location.replace('/');
 
       setIsLoading(false);
     }, 1000);
@@ -219,6 +226,12 @@ const Checkout: React.FC = () => {
           </label>
         </div>
       </div>
+
+      {cartEmpty && (
+        <span style={{ color: '#de4f6d' }}>
+          Нельзя отправить заказ с пустой корзиной
+        </span>
+      )}
 
       <CheckoutInfo />
 
