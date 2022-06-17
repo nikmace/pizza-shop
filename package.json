@@ -10,8 +10,8 @@
     "check": "npm run eslint:check && npm run prettier:check && npm run stylelint:check",
     "prepare": "husky install",
     "precommit": "lint-staged",
-    "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\"",
-    "prettier:fix": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
+    "prettier:check": "prettier --check \"src/**/*.{ts,tsx}\"",
+    "prettier:fix": "prettier --write \"src/**/*.{ts,tsx}\"",
     "prettier:check:json": "prettier --check \"*.json\"",
     "prettier:fix:json": "prettier --write \"*.json\"",
     "stylelint:check": "stylelint \"src/**/*.scss\" --custom-syntax postcss-scss",
@@ -21,8 +21,6 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.2",
-    "firebase": "^9.8.1",
-    "lodash.debounce": "^4.0.8",
     "react": "^18.1.0",
     "react-content-loader": "^6.2.0",
     "react-dom": "^18.1.0",
@@ -89,7 +87,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
+    "src/*.{ts,tsx}": [
       "eslint",
       "prettier --check"
     ],

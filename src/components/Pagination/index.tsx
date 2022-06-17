@@ -9,7 +9,7 @@ type PaginationProps = {
   currentPage: number;
 };
 
-const Pagination: React.FC<PaginationProps> = ({ currentPage }) => {
+const Pagination: React.FC<PaginationProps> = React.memo(({ currentPage }) => {
   const dispatch = useDispatch();
 
   return (
@@ -26,6 +26,6 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage }) => {
       forcePage={currentPage - 1}
     />
   );
-};
+});
 
 export default Pagination;

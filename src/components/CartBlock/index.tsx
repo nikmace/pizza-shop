@@ -38,6 +38,7 @@ const CartBlock: React.FC<CartItem> = ({
 
     dispatch(addItemToCart(item));
   };
+
   return (
     <div className="cart__item">
       <div className="cart__item-img">

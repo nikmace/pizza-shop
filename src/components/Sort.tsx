@@ -13,15 +13,15 @@ type PopupType = {
   id: number;
 };
 
-const Sort: React.FC<SortProps> = ({ sort }) => {
+const popupTypes: PopupType[] = [
+  { name: 'популярности', sort: 'rating', id: 0 },
+  { name: 'цене', sort: 'price', id: 1 },
+  { name: 'алфавиту', sort: 'alphabet', id: 2 },
+];
+
+const Sort: React.FC<SortProps> = React.memo(({ sort }) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const dispatch = useDispatch();
-
-  const popupTypes: PopupType[] = [
-    { name: 'популярности', sort: 'rating', id: 0 },
-    { name: 'цене', sort: 'price', id: 1 },
-    { name: 'алфавиту', sort: 'alphabet', id: 2 },
-  ];
 
   const sortName = popupTypes[sort].name;
 
@@ -67,6 +67,6 @@ const Sort: React.FC<SortProps> = ({ sort }) => {
       )}
     </div>
   );
-};
+});
 
 export default Sort;

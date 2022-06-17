@@ -7,17 +7,17 @@ type CategoryProps = {
   categoryId: number;
 };
 
-const Categories: React.FC<CategoryProps> = ({ categoryId }) => {
-  const dispatch = useDispatch();
+const categories = [
+  { category: 'Все', id: 'cat0' },
+  { category: 'Мясные', id: 'cat1' },
+  { category: 'Вегетарианская', id: 'cat2' },
+  { category: 'Гриль', id: 'cat3' },
+  { category: 'Острые', id: 'cat4' },
+  { category: 'Закрытые', id: 'cat5' },
+];
 
-  const categories = [
-    { category: 'Все', id: 'cat0' },
-    { category: 'Мясные', id: 'cat1' },
-    { category: 'Вегетарианская', id: 'cat2' },
-    { category: 'Гриль', id: 'cat3' },
-    { category: 'Острые', id: 'cat4' },
-    { category: 'Закрытые', id: 'cat5' },
-  ];
+const Categories: React.FC<CategoryProps> = React.memo(({ categoryId }) => {
+  const dispatch = useDispatch();
 
   return (
     <div className="categories">
@@ -34,6 +34,6 @@ const Categories: React.FC<CategoryProps> = ({ categoryId }) => {
       </ul>
     </div>
   );
-};
+});
 
 export default Categories;

@@ -24,9 +24,9 @@
         height: 100vh;
         display: flex;
         overflow: hidden;
-        background: rgb(255,223,140);
+        background: rgb(255, 223, 140);
       }
-  
+
       .loader {
         margin: auto;
         width: 100px;
@@ -34,22 +34,22 @@
         -webkit-animation: spin 2s linear infinite;
         animation: spin 2s linear infinite;
       }
-  
+
       @-webkit-keyframes spin {
         0% {
           -webkit-transform: rotate(0deg);
         }
-  
+
         100% {
           -webkit-transform: rotate(360deg);
         }
       }
-  
+
       @keyframes spin {
         0% {
           transform: rotate(0deg);
         }
-  
+
         100% {
           transform: rotate(360deg);
         }
@@ -60,7 +60,7 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
       <div class="loader-container">
-        <img class="loader" src="%PUBLIC_URL%/logo.svg" alt="Pizza Logo">
+        <img class="loader" src="%PUBLIC_URL%/logo.svg" alt="Pizza Logo" />
       </div>
     </div>
   </body>
