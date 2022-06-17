@@ -92,7 +92,7 @@
       "eslint",
       "prettier --check"
     ],
-    "*src/.json": [
+    "*src/*.json": [
       "prettier --check"
     ],
     "*.css": [
