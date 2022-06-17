@@ -82,11 +82,16 @@ const Checkout: React.FC = () => {
       // Save to MongoDB
       if (order.order.length !== 0) {
         // TODO: If error occurs notify user
-        await sendOrder(order, dispatch);
+        const res = await sendOrder(order, dispatch);
 
-        // Save to local storage
-        localStorage.setItem('order', JSON.stringify(order));
-        setIsLoading(true);
+        if (res?.success) {
+          // window.scrollTo(0, 0);
+          // Save to local storage
+          localStorage.setItem('order', JSON.stringify(order));
+          // Show loading screen
+          setInputValues(initialInputValues);
+          setIsLoading(true);
+        }
       } else {
         // Tell user cannot send order with empty cart
         setIsCartEmpty(true);
