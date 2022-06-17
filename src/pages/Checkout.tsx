@@ -1,12 +1,16 @@
 import React, { ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
 
+import 'react-toastify/dist/ReactToastify.css';
+
 import getCartFromLS from 'utils/getCartFromLS';
 import { BottomButtons, CheckoutInfo, Loader } from '../components';
 
 import validateInput, { ValidationResponse } from '../server/validateInput';
 import sendOrder from '../server/sendOrder';
+
 import { removeAllItemsFromCart } from '../redux/cart/slice';
+
 import { OrderCartData } from '../types/types';
 
 export type InputValues = {
@@ -18,6 +22,15 @@ export type InputValues = {
   time: string;
 };
 
+const initialInputValues = {
+  firstName: '',
+  lastName: '',
+  phone: '',
+  email: '',
+  address: '',
+  time: '',
+};
+
 const Checkout: React.FC = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
@@ -25,14 +38,8 @@ const Checkout: React.FC = () => {
   const [validationRes, setValidationRes] = React.useState<
     ValidationResponse | undefined
   >();
-  const [inputValues, setInputValues] = React.useState<InputValues>({
-    firstName: '',
-    lastName: '',
-    phone: '',
-    email: '',
-    address: '',
-    time: '',
-  });
+  const [inputValues, setInputValues] =
+    React.useState<InputValues>(initialInputValues);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -48,7 +55,7 @@ const Checkout: React.FC = () => {
   };
 
   const submitOrder = async () => {
-    const res = await validate();
+    const valRes = await validate();
 
     const { cartItems, totalPrice } = getCartFromLS();
     const arrayOfItems: OrderCartData[] = [];
@@ -64,7 +71,7 @@ const Checkout: React.FC = () => {
       });
     });
 
-    if (res?.success) {
+    if (valRes?.success) {
       const order = {
         ...inputValues,
         orderTimeSent: new Date().toLocaleString(),
@@ -92,7 +99,7 @@ const Checkout: React.FC = () => {
     setTimeout(() => {
       dispatch(removeAllItemsFromCart());
 
-      // window.location.replace('/');
+      window.location.replace('/');
 
       setIsLoading(false);
     }, 1000);
