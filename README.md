@@ -11,7 +11,6 @@
 
 Project with configured **ESLint**, **Prettier**, **Stylelint**, **Editorconfig**, **Lint Staged** & **Husky hooks**.
 
-
 # 🛠 Technologies:
 
 - **ReactJS 18**
@@ -27,22 +26,28 @@ Project with configured **ESLint**, **Prettier**, **Stylelint**, **Editorconfig*
 - and more...
 
 ## **Backend**:
+
 NestJS (Typescript) with MongoDB. The server is hosted on Heroku.
 
 Article on how to [deploy NestJS application to Heroku](https://medium.com/@nikmacentosh/deploying-nestjs-server-to-heroku-guide-46e36f8ce779).
 
 ## Steps to reproduce
+
 Install all the packages needed to run your react application.
+
 ```shell
 npm install
 ```
+
 then
+
 ```shell
 npm start
 ```
 
 <!-- MARKDOWN LINKS & IMAGES SHIELDS -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [contributors-shield]: https://img.shields.io/github/contributors/nikmace/pizza-shop.svg?style=for-the-badge
 [contributors-url]: https://github.com/nikmace/pizza-shop/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/nikmace/pizza-shop.svg?style=for-the-badge
