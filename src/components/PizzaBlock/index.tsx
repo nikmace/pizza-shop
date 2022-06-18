@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { addItemToCart } from 'redux/cart/slice';
 import { CartItem, IPizza, VariationItem } from 'types/types';
@@ -21,7 +22,7 @@ const PizzaBlock: React.FC<IPizza> = ({
 }) => {
   const dispatch = useDispatch();
   const addedCount = useSelector(selectCartItemById(_id));
-
+  const navigate = useNavigate();
   const [activeType, setActiveType] = React.useState<number>(0);
   const [activeSize, setActiveSize] = React.useState<number>(0);
   const [activePrice, setActivePrice] = React.useState<number>(0);
@@ -73,7 +74,12 @@ const PizzaBlock: React.FC<IPizza> = ({
   return (
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
-        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+        <img
+          onClick={() => navigate(`/pizza/${_id}`)}
+          className="pizza-block__image"
+          src={imageUrl}
+          alt="Pizza"
+        />
         <h4 className="pizza-block__title">{name}</h4>
         <div className="pizza-block__selector">
           <ul>
