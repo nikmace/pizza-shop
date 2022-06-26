@@ -30,7 +30,12 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^9.0.4",
     "sass": "^1.52.1",
-    "web-vitals": "^2.1.4"
+    "stream": "^0.0.2",
+    "web-vitals": "^2.1.4",
+    "web3uikit": "^0.1.162",
+    "moralis": "^1.8.0",
+    "react-moralis": "^1.4.0",
+    "magic-sdk": "^8.1.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.15.1",
@@ -88,7 +93,7 @@
     }
   },
   "lint-staged": {
-    "src/*.{ts,tsx}": [
+    "src/**/*.{ts,tsx}": [
       "eslint",
       "prettier --check"
     ],
