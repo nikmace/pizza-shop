@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNotification } from 'web3uikit';
+import toast from 'react-hot-toast';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -41,7 +41,6 @@ const initialInputValues = {
 
 const Checkout: React.FC = () => {
   const dispatch = useDispatch();
-  const sendNotification = useNotification();
 
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [validationRes, setValidationRes] = React.useState<ValidateInputRes>();
@@ -80,6 +79,7 @@ const Checkout: React.FC = () => {
 
   const resetOrderForm = () => {
     // Show loading screen
+    window.scrollTo(0, 0);
     setInputValues(initialInputValues);
     setIsLoading(true);
   };
@@ -108,31 +108,13 @@ const Checkout: React.FC = () => {
           resetOrderForm();
 
           // Notify user
-          sendNotification({
-            type: 'success',
-            message: res?.message || '',
-            title: 'Успешная операция',
-            icon: 'cart',
-            position: 'topR',
-          });
+          toast.success(res?.message || '');
         } else {
-          sendNotification({
-            type: 'error',
-            message: res?.message || '',
-            title: 'Ошибка',
-            icon: 'exclamation',
-            position: 'topR',
-          });
+          toast.error(res?.message || '');
         }
       } else {
         // Tell user cannot send order with empty cart
-        sendNotification({
-          type: 'warning',
-          message: 'Корзина не может быть пустой!',
-          title: 'Добавьте пиццу в корзину',
-          icon: 'cart',
-          position: 'topR',
-        });
+        toast.error('Корзина не может быть пустой!\nДобавьте пиццу в корзину');
       }
     }
   };
