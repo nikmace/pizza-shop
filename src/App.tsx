@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
 import { Header, Loader } from './components';
 import { Home } from './pages';
@@ -20,6 +21,18 @@ const SinglePizza = React.lazy(
 const App: React.FC = () => {
   return (
     <div className="wrapper">
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          className: '',
+          duration: 4000,
+          success: {
+            style: {
+              padding: '8px',
+            },
+          },
+        }}
+      />
       <Header />
       <div className="content">
         <Routes>
