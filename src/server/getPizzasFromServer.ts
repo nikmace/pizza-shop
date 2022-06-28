@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { Dispatch } from 'react';
 
-import { setError } from 'redux/error/slice';
+import { setError, setStatusCode } from 'redux/error/slice';
 import { IPizza } from 'types/types';
 
 const getPizzasFromServer = async (
@@ -27,6 +27,7 @@ const getPizzasFromServer = async (
     return pizzaList;
   } catch (err) {
     if (err instanceof Error) {
+      dispatch(setStatusCode('408'));
       dispatch(setError(err.message));
     }
   }

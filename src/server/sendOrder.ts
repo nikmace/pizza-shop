@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { Dispatch } from 'react';
 
-import { setError } from 'redux/error/slice';
+import { setError, setStatusCode } from 'redux/error/slice';
 import { Order } from '../types/types';
 
 type OrderResponse = {
@@ -30,6 +30,7 @@ const sendOrder = async (
     return parsedData;
   } catch (err) {
     if (err instanceof Error) {
+      dispatch(setStatusCode('500'));
       dispatch(setError(err.message));
     }
   }

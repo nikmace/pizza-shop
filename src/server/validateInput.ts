@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { Dispatch } from 'react';
 
-import { setError } from 'redux/error/slice';
+import { setError, setStatusCode } from 'redux/error/slice';
 import { InputValues } from 'pages/Checkout';
 
 export type ValidationResponse = {
@@ -40,6 +40,7 @@ const validateInput = async (
     return parsedData;
   } catch (err) {
     if (err instanceof Error) {
+      dispatch(setStatusCode('503'));
       dispatch(setError(err.message));
     }
   }
