@@ -2,8 +2,6 @@ import React, { ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 
-import 'react-toastify/dist/ReactToastify.css';
-
 import getCartFromLS from 'utils/getCartFromLS';
 import {
   BottomButtons,
