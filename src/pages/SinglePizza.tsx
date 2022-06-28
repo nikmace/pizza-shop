@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import getPizzaById from 'server/getPizzaById';
 import { IPizza } from 'types/types';
-import { Loader } from 'components';
+import { Loader, PizzaNotFound } from 'components';
 import starSVG from '../assets/img/heart.svg';
 
 const types = ['тонкое', 'традиционное'];
@@ -45,48 +45,58 @@ const SinglePizza: React.FC = () => {
 
   return (
     <div className="container">
-      <div className="content__top">
-        <h2 className="content__title">{pizza?.name}</h2>
-      </div>
-      <div className="pizza">
-        <img className="pizza__image" src={pizza?.imageUrl} alt={pizza?.name} />
-        <div className="pizza__info">
-          <div className="pizza__info-item">
-            <h3>Цена:</h3>
-            <span>от {pizza?.price} ₽</span>
+      {pizza?._id ? (
+        <>
+          <div className="content__top">
+            <h2 className="content__title">{pizza?.name}</h2>
           </div>
-          <div className="pizza__info-item">
-            <h3>Рейтинг:</h3>
-            <span>
-              {pizza?.rating} <img src={starSVG} alt="Star" />
-            </span>
-          </div>
-          <div className="pizza__info-item">
-            <h3>Возможные размеры:</h3>
-            <span>{pizza?.sizes.map((v) => `${v.toString()} см. `)}</span>
-          </div>
-          <div className="pizza__info-item">
-            <h3>Тип теста</h3>
-            <span>
-              {pizza?.types.map((v, idx, arr) => {
-                if (arr.length - 1 === idx) {
-                  return `${types[v]}`;
-                }
-                return `${types[v]}, `;
-              })}
-            </span>
-          </div>
-          <div className="pizza__info-item">
-            <h3>Категория:</h3>
-            <span>{categories[pizza ? pizza?.category : 0]}</span>
-          </div>
-          <Link to="/">
-            <div className="button pay-btn pizza-btn">
-              <span>Назад</span>
+          <div className="pizza">
+            <img
+              className="pizza__image"
+              src={pizza?.imageUrl}
+              alt={pizza?.name}
+            />
+            <div className="pizza__info">
+              <div className="pizza__info-item">
+                <h3>Цена:</h3>
+                <span>от {pizza?.price} ₽</span>
+              </div>
+              <div className="pizza__info-item">
+                <h3>Рейтинг:</h3>
+                <span>
+                  {pizza?.rating} <img src={starSVG} alt="Star" />
+                </span>
+              </div>
+              <div className="pizza__info-item">
+                <h3>Возможные размеры:</h3>
+                <span>{pizza?.sizes.map((v) => `${v.toString()} см. `)}</span>
+              </div>
+              <div className="pizza__info-item">
+                <h3>Тип теста</h3>
+                <span>
+                  {pizza?.types.map((v, idx, arr) => {
+                    if (arr.length - 1 === idx) {
+                      return `${types[v]}`;
+                    }
+                    return `${types[v]}, `;
+                  })}
+                </span>
+              </div>
+              <div className="pizza__info-item">
+                <h3>Категория:</h3>
+                <span>{categories[pizza ? pizza?.category : 0]}</span>
+              </div>
+              <Link to="/">
+                <div className="button pay-btn pizza-btn">
+                  <span>Назад</span>
+                </div>
+              </Link>
             </div>
-          </Link>
-        </div>
-      </div>
+          </div>
+        </>
+      ) : (
+        <PizzaNotFound />
+      )}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { Dispatch } from 'react';
 
-import { setError } from 'redux/error/slice';
+import { setError, setStatusCode } from 'redux/error/slice';
 import { IPizza } from 'types/types';
 
 const getPizzaById = async (
@@ -34,6 +34,8 @@ const getPizzaById = async (
     pizza = await data.json();
   } catch (err) {
     if (err instanceof Error) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      dispatch(setStatusCode('400'));
       dispatch(setError(err.message));
     }
   }

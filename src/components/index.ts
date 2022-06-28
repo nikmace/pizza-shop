@@ -12,3 +12,4 @@ export { default as CheckoutInfo } from './CheckoutInfoBlock';
 export { default as Loader } from './LoaderBlock';
 export { default as BottomButtons } from './CheckoutInfoBlock/BottomButtons';
 export { default as CheckoutHeading } from './CheckoutInfoBlock/CheckoutHeading';
+export { default as PizzaNotFound } from './PizzaNotFound/PizzaNotFound';
