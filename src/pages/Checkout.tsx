@@ -40,7 +40,7 @@ const initialInputValues = {
 
 const Checkout: React.FC = () => {
   const dispatch = useDispatch();
-  console.log('rerendered');
+
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [validationRes, setValidationRes] = React.useState<ValidateInputRes>();
   const [inputValues, setInputValues] =
