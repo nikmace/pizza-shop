@@ -2,6 +2,7 @@ import React, { ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 
+import { disablePastDate } from 'utils/disablePastDate';
 import getCartFromLS from 'utils/getCartFromLS';
 import {
   BottomButtons,
@@ -39,7 +40,7 @@ const initialInputValues = {
 
 const Checkout: React.FC = () => {
   const dispatch = useDispatch();
-
+  console.log('rerendered');
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [validationRes, setValidationRes] = React.useState<ValidateInputRes>();
   const [inputValues, setInputValues] =
@@ -228,6 +229,7 @@ const Checkout: React.FC = () => {
               type="datetime-local"
               value={inputValues.time}
               onChange={handleInputChange}
+              min={disablePastDate()}
             />
             {validationRes?.errors.time.map((e) => (
               <span key={e}>{e}</span>
