@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { selectCartItemsCount, selectTotalPrice } from 'redux/cart/selectors';
@@ -8,6 +8,7 @@ import logoSvg from '../assets/img/pizza-logo.svg';
 import Search from './Search';
 
 const Header: React.FC = () => {
+  const { pathname } = useLocation();
   const totalPrice = useSelector(selectTotalPrice);
   const cartItemsCount = useSelector(selectCartItemsCount);
 
@@ -24,7 +25,7 @@ const Header: React.FC = () => {
           </div>
         </Link>
 
-        <Search />
+        {pathname === '/' && <Search />}
 
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
