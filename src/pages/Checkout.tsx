@@ -29,13 +29,14 @@ export type InputValues = {
 
 type ValidateInputRes = ValidationResponse | undefined;
 
+const currentDatePlusMinutes = disablePastDate();
 const initialInputValues = {
   firstName: '',
   lastName: '',
   phone: '',
   email: '',
   address: '',
-  time: '',
+  time: currentDatePlusMinutes,
 };
 
 const Checkout: React.FC = () => {
@@ -229,7 +230,9 @@ const Checkout: React.FC = () => {
               type="datetime-local"
               value={inputValues.time}
               onChange={handleInputChange}
-              min={disablePastDate()}
+              min={currentDatePlusMinutes}
+              step="900"
+              required
             />
             {validationRes?.errors.time.map((e) => (
               <span key={e}>{e}</span>
