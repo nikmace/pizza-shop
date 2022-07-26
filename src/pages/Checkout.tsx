@@ -85,13 +85,20 @@ const Checkout: React.FC = () => {
   };
 
   const submitOrder = async () => {
-    const valRes = await validate();
-
     const { cartItems, totalPrice } = getCartFromLS();
     const arrayOfItems = getOrderFromCartItems(cartItems);
 
+    // If there are no items in the cart, user cannot order
+    if (arrayOfItems.length === 0) {
+      toast.error('Корзина не может быть пустой!\nДобавьте пиццу в корзину');
+      return;
+    }
+
+    // Validate form inputs to display error messages
+    const valRes = await validate();
+
     if (valRes?.success) {
-      // If validation is successful
+      // If validation is successful, we create our order object
       const order = {
         ...inputValues,
         orderTimeSent: new Date().toLocaleString(),
@@ -112,9 +119,6 @@ const Checkout: React.FC = () => {
         } else {
           toast.error(res?.message || '');
         }
-      } else {
-        // Tell user cannot send order with empty cart
-        toast.error('Корзина не может быть пустой!\nДобавьте пиццу в корзину');
       }
     }
   };
@@ -122,6 +126,7 @@ const Checkout: React.FC = () => {
   // We set loading when we submit order, then redirect to home page
   if (isLoading) {
     setTimeout(() => {
+      // Remove cart items persisted in Redux store & localStorage
       dispatch(removeAllItemsFromCart());
       // window.location.replace('/');
       setIsLoading(false);
