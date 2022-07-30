@@ -68,7 +68,7 @@ const Checkout: React.FC = () => {
         name: item.name,
         variationId: item.variation.id,
         count: item.variation.count,
-        price: item.price + item.variation.variationPrice,
+        price: item.price,
         size: item.variation.size,
         type: item.variation.type,
       });

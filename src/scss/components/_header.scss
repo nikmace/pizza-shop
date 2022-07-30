@@ -14,6 +14,17 @@
     }
   }
 
+  &__cart {
+    display: flex;
+    max-width: 250px;
+    width: 100%;
+    justify-content: space-between;
+
+    @media (max-width: 930px) {
+      justify-content: center;
+    }
+  }
+
   &__logo {
     display: flex;
 
@@ -35,6 +46,21 @@
 
     p {
       color: #7b7b7b;
+    }
+  }
+
+  &__previous {
+    @media (max-width: 930px) {
+      padding-bottom: 30px;
+    }
+
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    min-width: 50px !important;
+
+    span {
+      padding-right: 5px;
     }
   }
 }

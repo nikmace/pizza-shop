@@ -49,3 +49,26 @@ export type OrderCartData = {
   size: number;
   type: string;
 };
+
+export type OrderedPizza = {
+  _id: string;
+  name: string;
+  variationId: string;
+  count: number;
+  price: number;
+  size: number;
+  type: string;
+};
+
+export type PreviousOrder = {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  address: string;
+  time: string;
+  order: OrderedPizza[];
+  orderTimeSent: string;
+  totalPrice: number;
+};
