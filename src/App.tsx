@@ -17,6 +17,10 @@ const NotFound = React.lazy(
 const SinglePizza = React.lazy(
   () => import(/* webpackChunkName: "SinglePizza" */ './pages/SinglePizza')
 );
+const PreviousOrders = React.lazy(
+  () =>
+    import(/* webpackChunkName: "PreviousOrders" */ './pages/PreviousOrders')
+);
 
 const App: React.FC = () => {
   return (
@@ -50,6 +54,14 @@ const App: React.FC = () => {
             element={
               <Suspense fallback={<Loader />}>
                 <Checkout />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/previous-orders"
+            element={
+              <Suspense fallback={<Loader />}>
+                <PreviousOrders />
               </Suspense>
             }
           />
