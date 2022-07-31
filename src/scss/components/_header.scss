@@ -18,10 +18,10 @@
     display: flex;
     max-width: 250px;
     width: 100%;
-    justify-content: space-between;
+    justify-content: space-evenly;
 
     @media (max-width: 930px) {
-      justify-content: space-evenly;
+      justify-content: space-around;
     }
   }
 

@@ -1,10 +1,15 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import getPizzaById from 'server/getPizzaById';
-import { IPizza } from 'types/types';
-import { Loader, PizzaNotFound } from 'components';
+import { selectLocale } from '../redux/i18n/selectors';
+
+import { Loader, PizzaNotFound } from '../components';
+
+import { IPizza } from '../types/types';
+
+import getPizzaById from '../server/getPizzaById';
+
 import starSVG from '../assets/img/heart.svg';
 
 const types = ['тонкое', 'традиционное'];
@@ -17,11 +22,28 @@ const categories = [
   'Закрытые',
 ];
 
-const SinglePizza: React.FC = () => {
+const SinglePizza: React.FC = React.memo(() => {
   const dispatch = useDispatch();
   const { id } = useParams<string>();
+
   const [pizza, setPizza] = React.useState<IPizza>();
   const [loading, setLoading] = React.useState(false);
+
+  // For some reason this causes the component to render 3 times
+  const i18n = useSelector(selectLocale);
+
+  const {
+    currencySign,
+    SinglePizza: {
+      PIZZA_CATEGORY,
+      PIZZA_DOUGH_TYPE,
+      PIZZA_FROM,
+      PIZZA_PRICE,
+      PIZZA_RATING,
+      PIZZA_SIZES,
+      BACK_BUTTON,
+    },
+  } = i18n;
 
   React.useEffect(() => {
     const getPizza = async () => {
@@ -58,21 +80,23 @@ const SinglePizza: React.FC = () => {
             />
             <div className="pizza__info">
               <div className="pizza__info-item">
-                <h3>Цена:</h3>
-                <span>от {pizza?.price} ₽</span>
+                <h3>{PIZZA_PRICE}:</h3>
+                <span>
+                  {PIZZA_FROM} {pizza?.price} {currencySign}
+                </span>
               </div>
               <div className="pizza__info-item">
-                <h3>Рейтинг:</h3>
+                <h3>{PIZZA_RATING}:</h3>
                 <span>
                   {pizza?.rating} <img src={starSVG} alt="Star" />
                 </span>
               </div>
               <div className="pizza__info-item">
-                <h3>Возможные размеры:</h3>
+                <h3>{PIZZA_SIZES}:</h3>
                 <span>{pizza?.sizes.map((v) => `${v.toString()} см. `)}</span>
               </div>
               <div className="pizza__info-item">
-                <h3>Тип теста</h3>
+                <h3>{PIZZA_DOUGH_TYPE}</h3>
                 <span>
                   {pizza?.types.map((v, idx, arr) => {
                     if (arr.length - 1 === idx) {
@@ -83,12 +107,12 @@ const SinglePizza: React.FC = () => {
                 </span>
               </div>
               <div className="pizza__info-item">
-                <h3>Категория:</h3>
+                <h3>{PIZZA_CATEGORY}:</h3>
                 <span>{categories[pizza ? pizza?.category : 0]}</span>
               </div>
               <Link to="/">
                 <div className="button pay-btn pizza-btn">
-                  <span>Назад</span>
+                  <span>{BACK_BUTTON}</span>
                 </div>
               </Link>
             </div>
@@ -99,6 +123,6 @@ const SinglePizza: React.FC = () => {
       )}
     </div>
   );
-};
+});
 
 export default SinglePizza;

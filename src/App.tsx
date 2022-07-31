@@ -1,6 +1,10 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { Toaster } from 'react-hot-toast';
+
+import { seti18n } from './redux/i18n/slice';
+import { getCurrentIP } from './i18n';
 
 import { Header, Loader } from './components';
 import { Home } from './pages';
@@ -23,6 +27,22 @@ const PreviousOrders = React.lazy(
 );
 
 const App: React.FC = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    async function getIP() {
+      const data = await getCurrentIP();
+      dispatch(
+        seti18n({
+          ip: data.ip,
+          country: data.country,
+        })
+      );
+    }
+
+    getIP();
+  }, [dispatch]);
+
   return (
     <div className="wrapper">
       <Toaster
