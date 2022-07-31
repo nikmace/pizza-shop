@@ -5,6 +5,7 @@ import pizzaReducer from './pizza/slice';
 import cartReducer from './cart/slice';
 import errorReducer from './error/slice';
 import orderReducer from './order/slice';
+import i18nReducer from './i18n/slice';
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     cart: cartReducer,
     error: errorReducer,
     order: orderReducer,
+    i18n: i18nReducer,
   },
 });
 
