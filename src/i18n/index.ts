@@ -37,7 +37,7 @@ export interface IpData {
   country: string;
 }
 
-interface APIResponse {
+export interface APIResponse {
   city: string;
   country: string;
   hostname: string;
@@ -49,12 +49,18 @@ interface APIResponse {
   timezone: string;
 }
 
-export async function getCurrentIP(): Promise<IpData> {
-  const request = await fetch('https://ipinfo.io/json?token=dea24934179d18');
-  const json = (await request.json()) as APIResponse;
+export async function getCurrentIP(): Promise<APIResponse> {
+  let geolocationData: APIResponse;
+  const json = localStorage.getItem('geolocation_data');
+  if (json) {
+    geolocationData = JSON.parse(json) as APIResponse;
+  } else {
+    const response = await fetch('https://ipinfo.io/json?token=dea24934179d18');
+    geolocationData = (await response.json()) as APIResponse;
+    localStorage.setItem('geolocation_data', JSON.stringify(geolocationData));
+  }
 
   return {
-    ip: json.ip,
-    country: json.country,
+    ...geolocationData,
   };
 }
