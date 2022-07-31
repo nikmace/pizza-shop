@@ -31,11 +31,12 @@ const App: React.FC = () => {
 
   useEffect(() => {
     async function getIP() {
-      const data = await getCurrentIP();
+      const geolocationData = await getCurrentIP();
+
       dispatch(
         seti18n({
-          ip: data.ip,
-          country: data.country,
+          ip: geolocationData.ip,
+          country: geolocationData.country,
         })
       );
     }
