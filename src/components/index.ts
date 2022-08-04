@@ -15,3 +15,4 @@ export { default as CheckoutHeading } from './CheckoutInfoBlock/CheckoutHeading'
 export { default as PizzaNotFound } from './PizzaNotFound/PizzaNotFound';
 export { default as PreviousOrdersItems } from './PreviousOrdersItems';
 export { default as OrderItem } from './PreviousOrdersItems/OrderItem';
+export { default as Copyright } from './Copyright';
