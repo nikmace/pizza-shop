@@ -6,7 +6,7 @@ import { Toaster } from 'react-hot-toast';
 import { seti18n } from './redux/i18n/slice';
 import { getCurrentIP } from './i18n';
 
-import { Header, Loader } from './components';
+import { Copyright, Header, Loader } from './components';
 import { Home } from './pages';
 
 const Cart = React.lazy(
@@ -45,66 +45,69 @@ const App: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <div className="wrapper">
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          className: '',
-          duration: 4000,
-          success: {
-            style: {
-              padding: '8px',
+    <>
+      <div className="wrapper">
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            className: '',
+            duration: 4000,
+            success: {
+              style: {
+                padding: '8px',
+              },
             },
-          },
-        }}
-      />
-      <Header />
-      <div className="content">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/cart"
-            element={
-              <Suspense fallback={<Loader />}>
-                <Cart />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/checkout"
-            element={
-              <Suspense fallback={<Loader />}>
-                <Checkout />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/previous-orders"
-            element={
-              <Suspense fallback={<Loader />}>
-                <PreviousOrders />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/pizza/:id"
-            element={
-              <Suspense fallback={<Loader />}>
-                <SinglePizza />
-              </Suspense>
-            }
-          />
-          <Route
-            path="*"
-            element={
-              <Suspense fallback={<Loader />}>
-                <NotFound />
-              </Suspense>
-            }
-          />
-        </Routes>
+          }}
+        />
+        <Header />
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/cart"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <Cart />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/checkout"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <Checkout />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/previous-orders"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <PreviousOrders />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/pizza/:id"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <SinglePizza />
+                </Suspense>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <NotFound />
+                </Suspense>
+              }
+            />
+          </Routes>
+        </div>
       </div>
-    </div>
+      <Copyright />
+    </>
   );
 };
 
