@@ -49,6 +49,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
     'react/function-component-definition': 'off',
+    'react/require-default-props': 'off',
     'no-consolete': 'off',
     'no-cond-assign': 'error',
     'no-duplicate-case': 'error',
