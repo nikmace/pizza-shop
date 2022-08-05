@@ -18,7 +18,7 @@ const OrderItem: React.FC<PreviousOrder> = ({
         </p>
         <span>{email}</span>
         <p>
-          {firstName} {lastName}
+          {firstName} {lastName.slice(0, 1)}.
         </p>
         <p>{totalPrice} ₽</p>
         <p>{orderTimeSent}</p>

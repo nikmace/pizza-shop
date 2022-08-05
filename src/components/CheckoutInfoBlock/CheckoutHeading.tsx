@@ -1,10 +1,11 @@
-const CheckoutHeading = ({
-  title,
-  showIcon,
-}: {
+import React from 'react';
+
+interface HeadingProps {
   title: string;
   showIcon?: boolean;
-}) => {
+}
+
+const CheckoutHeading: React.FC<HeadingProps> = ({ title, showIcon }) => {
   return (
     <div className="cart__top">
       <h2 className="checkout__title">
@@ -29,10 +30,6 @@ const CheckoutHeading = ({
       </h2>
     </div>
   );
-};
-
-CheckoutHeading.defaultProps = {
-  showIcon: true,
 };
 
 export default CheckoutHeading;

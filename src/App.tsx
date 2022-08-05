@@ -6,7 +6,8 @@ import { Toaster } from 'react-hot-toast';
 import { seti18n } from './redux/i18n/slice';
 import { getCurrentIP } from './i18n';
 
-import { Copyright, Header, Loader } from './components';
+import { Copyright, Loader } from './components';
+import Header from './components/Header';
 import { Home } from './pages';
 
 const Cart = React.lazy(

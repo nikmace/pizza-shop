@@ -23,7 +23,7 @@ const CartBlock: React.FC<CartItem> = ({
   const dispatch = useDispatch();
   const totalPrice = useSelector(selectVariationTotalPrice(_id, variation.id));
 
-  const onAddPizzaToCart = () => {
+  const onAddPizzaToCart = (): void => {
     const item: CartItem = {
       _id,
       variation,

@@ -2,9 +2,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const BottomButtons: React.FC<{ submitOrder: () => Promise<void> }> = ({
-  submitOrder,
-}) => {
+interface ButtonsProps {
+  submitOrder: () => Promise<void>;
+}
+
+const BottomButtons: React.FC<ButtonsProps> = ({ submitOrder }) => {
   return (
     <div className="cart__bottom-buttons">
       <Link

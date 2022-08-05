@@ -1,4 +1,3 @@
-export { default as Header } from './Header';
 export { default as Categories } from './Categories';
 export { default as Sort } from './Sort';
 export { default as PizzaBlock } from './PizzaBlock';
@@ -16,3 +15,4 @@ export { default as PizzaNotFound } from './PizzaNotFound/PizzaNotFound';
 export { default as PreviousOrdersItems } from './PreviousOrdersItems';
 export { default as OrderItem } from './PreviousOrdersItems/OrderItem';
 export { default as Copyright } from './Copyright';
+export { default as PreviousOrders } from './PreviousOrders';

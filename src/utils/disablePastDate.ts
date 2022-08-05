@@ -6,7 +6,7 @@
  * @params None
  * @returns Current date
  */
-export const disablePastDate = () => {
+export const disablePastDate = (): string => {
   return new Date(new Date().getTime() + 225 * 60000)
     .toISOString()
     .slice(0, 16);

@@ -77,14 +77,14 @@ const Checkout: React.FC = () => {
     return itemArr;
   };
 
-  const resetOrderForm = () => {
+  const resetOrderForm = (): void => {
     // Show loading screen
     window.scrollTo(0, 0);
     setInputValues(initialInputValues);
     setIsLoading(true);
   };
 
-  const submitOrder = async () => {
+  const submitOrder = async (): Promise<void> => {
     const { cartItems, totalPrice } = getCartFromLS();
     const arrayOfItems = getOrderFromCartItems(cartItems);
 
@@ -137,7 +137,7 @@ const Checkout: React.FC = () => {
 
   return (
     <form className="container container--cart">
-      <CheckoutHeading title="Checkout" />
+      <CheckoutHeading title="Checkout" showIcon />
 
       <div className="checkout">
         <div className="checkout__item">

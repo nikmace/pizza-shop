@@ -10,7 +10,7 @@ const Search: React.FC = () => {
   const searchName = useSelector(selectPizza);
   const inputRef = React.useRef() as React.MutableRefObject<HTMLInputElement>;
 
-  const onChangeSearchValue = () => {
+  const onChangeSearchValue = (): void => {
     dispatch(setSearchValue(inputRef.current.value));
   };
 

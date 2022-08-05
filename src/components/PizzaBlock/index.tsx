@@ -38,7 +38,7 @@ const PizzaBlock: React.FC<IPizza> = ({
     );
   }, [activeType, activeSize, pizzaTypes, pizzaSizes]);
 
-  const onAddPizzaToCart = () => {
+  const onAddPizzaToCart = (): void => {
     let variation: VariationItem = {
       id: 'thin-26',
       type: 'тонкое',
